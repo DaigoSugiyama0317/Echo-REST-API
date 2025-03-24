@@ -3,7 +3,6 @@ package controller
 import (
 	"net/http"
 	"os"
-	"os/user"
 	"time"
 
 	"github.com/DaigoSugiyama0317/Echo-REST-API/model"
