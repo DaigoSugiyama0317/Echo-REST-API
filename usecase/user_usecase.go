@@ -48,7 +48,7 @@ func (uu *userUsecase) LogIn(user model.User) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	token := jwt.NewWithClaims(jwt.SigningMethodES256, jwt.MapClaims{
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"user_id": storedUser.ID,
 		"exp": time.Now().Add(time.Hour*12).Unix(),
 	})
