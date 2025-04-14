@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/DaigoSugiyama0317/Echo-REST-API/controller"
 	"github.com/DaigoSugiyama0317/Echo-REST-API/db"
+	"github.com/DaigoSugiyama0317/Echo-REST-API/migrate"
 	"github.com/DaigoSugiyama0317/Echo-REST-API/repository"
 	"github.com/DaigoSugiyama0317/Echo-REST-API/router"
 	"github.com/DaigoSugiyama0317/Echo-REST-API/usecase"
@@ -10,6 +11,9 @@ import (
 )
 
 func main() {
+	//一次的にmain.goでマイグレーションを実施
+	migrate.Migrate()
+
 	// DB接続の初期化
 	db := db.NewDB()
 

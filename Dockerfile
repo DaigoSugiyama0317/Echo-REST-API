@@ -1,5 +1,5 @@
 # ビルドステージ
-FROM golang:1.22-alpine AS builder
+FROM golang:1.24-alpine AS builder
 
 # ビルドに必要なパッケージをインストール
 RUN apk add --no-cache git gcc musl-dev
@@ -16,12 +16,8 @@ RUN go mod download
 # ソースコードをコピー
 COPY . .
 
-# カスタムマイグレーションスクリプトを実行
-# migrate.goを使ってマイグレーションを実行
-RUN go run ./migrate/migrate.go -GO_ENV=dev
-
 # アプリケーションをビルド
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o webapp ./cmd/main.go
+RUN go build -trimpath -ldflags "-w -s" -o webapp
 
 # 実行ステージ
 FROM alpine:3.19

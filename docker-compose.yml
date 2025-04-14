@@ -1,7 +1,6 @@
-version: "3.8"
 services:
   # Goアプリケーションサービス
-  go-webapp:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
@@ -14,18 +13,18 @@ services:
       POSTGRES_PW: ${POSTGRES_PW}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_PORT: 5432 # コンテナ内部ポート
-      POSTGRES_HOST: dev-postgres # サービス名
+      POSTGRES_HOST: db # Docker内のサービス名
       SECRET: ${SECRET}
       GO_ENV: ${GO_ENV}
       API_DOMAIN: ${API_DOMAIN}
       FE_URL: ${FE_URL}
     depends_on:
-      - dev-postgres
+      - db
     networks:
       - lesson
   
   # PostgreSQLデータベースサービス
-  dev-postgres:
+  db:
     image: postgres:15.1-alpine
     ports:
       - ${POSTGRES_PORT}:5432

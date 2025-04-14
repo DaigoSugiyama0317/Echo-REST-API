@@ -65,7 +65,7 @@ func (uc *userController) LogIn(c echo.Context) error {
 	cookie.Expires = time.Now().Add(24 * time.Hour)
 	cookie.Path = "/"
 	cookie.Domain = os.Getenv("API_DOMAIN") // ドメインは環境変数から取得
-	cookie.Secure = true                    // HTTPS限定
+	//cookie.Secure = true                    // HTTPS限定
 	cookie.HttpOnly = true                  // JSからアクセス不可
 	cookie.SameSite = http.SameSiteNoneMode // クロスサイト送信許可
 	c.SetCookie(cookie)
@@ -81,7 +81,7 @@ func (uc *userController) LogOut(c echo.Context) error {
 	cookie.Expires = time.Now()
 	cookie.Path = "/"
 	cookie.Domain = os.Getenv("API_DOMAIN")
-	cookie.Secure = true
+	//cookie.Secure = true
 	cookie.HttpOnly = true
 	cookie.SameSite = http.SameSiteNoneMode
 	c.SetCookie(cookie)

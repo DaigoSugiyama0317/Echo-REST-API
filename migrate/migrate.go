@@ -1,4 +1,4 @@
-package main
+package migrate
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"github.com/DaigoSugiyama0317/Echo-REST-API/model"
 )
 
-func main() {
+func Migrate() {
 	//データベースと接続
 	dbConn := db.NewDB()
 	defer fmt.Println("successfully Migrated")
