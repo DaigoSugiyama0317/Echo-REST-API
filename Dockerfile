@@ -17,7 +17,7 @@ RUN go mod download
 COPY . .
 
 # アプリケーションをビルド
-RUN go build -trimpath -ldflags "-w -s" -o webapp
+RUN go build -o webapp
 
 # 実行ステージ
 FROM alpine:3.19
@@ -36,10 +36,6 @@ WORKDIR /app
 
 # ビルドステージからバイナリをコピー
 COPY --from=builder /app/webapp /app/
-# 設定ファイルやその他の静的ファイルをコピー（必要に応じて）
-COPY --from=builder /app/config /app/config
-COPY --from=builder /app/static /app/static
-COPY --from=builder /app/templates /app/templates
 
 # アプリケーションディレクトリの所有者を変更
 RUN chown -R appuser:appuser /app

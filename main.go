@@ -11,11 +11,11 @@ import (
 )
 
 func main() {
-	//一次的にmain.goでマイグレーションを実施
-	migrate.Migrate()
-
 	// DB接続の初期化
 	db := db.NewDB()
+
+	//一次的にmain.goでマイグレーションを実施
+	migrate.Migrate(db)
 
 	// バリデーションのインスタンス生成
 	userValidator := validator.NewUserValidator()
