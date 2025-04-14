@@ -8,7 +8,7 @@ import (
 // ユーザー関連のDB操作のインターフェース
 type IUserRepository interface {
 	GetUserByEmail(user *model.User, email string) error // メールアドレスからユーザーを取得
-	CreateUser(user *model.User) error // ユーザーの新規作成
+	CreateUser(user *model.User) error                   // ユーザーの新規作成
 }
 
 // リポジトリの構造体（GORMのDB接続を保持）

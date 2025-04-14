@@ -13,7 +13,7 @@ import (
 // ユーザーに関するコントローラーのインターフェース定義
 // 各関数は HTTP リクエストを受け取って処理を行う
 type IUserController interface {
-	SignUP(c echo.Context) error    // ユーザー登録
+	SignUp(c echo.Context) error    // ユーザー登録
 	LogIn(c echo.Context) error     // ログイン
 	LogOut(c echo.Context) error    // ログアウト
 	CsrfToken(c echo.Context) error // CSRFトークンの取得
@@ -31,7 +31,7 @@ func NewUserController(uu usecase.IUserUsecase) IUserController {
 }
 
 // ユーザー登録用のハンドラー
-func (uc *userController) SignUP(c echo.Context) error {
+func (uc *userController) SignUp(c echo.Context) error {
 	user := model.User{}
 	// リクエストボディを user 構造体にバインド
 	if err := c.Bind(&user); err != nil {

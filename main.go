@@ -28,7 +28,7 @@ func main() {
 	// コントローラー層の初期化
 	userController := controller.NewUserController(userUsecase)
 	taskController := controller.NewTaskController(taskUsecase)
-	
+
 	// ルーターを構築して、エンドポイントを登録
 	e := router.NewRouter(userController, taskController)
 
