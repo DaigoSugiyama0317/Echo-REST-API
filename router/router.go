@@ -24,7 +24,7 @@ func NewRouter(uc controller.IUserController, tc controller.ITaskController) *ec
 		CookieDomain: os.Getenv("API_DOMAIN"),
 		CookieHTTPOnly: true,
 		CookieSameSite: http.SameSiteNoneMode,
-		//CookieMaxAge: 60,
+		CookieMaxAge: 60,
 	}))
 	e.POST("/signup", uc.SignUP)
 	e.POST("/login", uc.LogIn)

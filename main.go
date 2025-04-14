@@ -10,15 +10,28 @@ import (
 )
 
 func main() {
+	// DB接続の初期化
 	db := db.NewDB()
+
+	// バリデーションのインスタンス生成
 	userValidator := validator.NewUserValidator()
 	taskValidator := validator.NewTaskValidator()
+
+	// リポジトリ層の初期化
 	userRepository := repository.NewUserRepository(db)
 	taskRepository := repository.NewTaskRepository(db)
+
+	// ユースケース（ビジネスロジック）層
 	userUsecase := usecase.NewUserUsecase(userRepository, userValidator)
 	taskUsecase := usecase.NewTaskUsecase(taskRepository, taskValidator)
-	userController := controller.NesUserController(userUsecase)
+
+	// コントローラー層の初期化
+	userController := controller.NewUserController(userUsecase)
 	taskController := controller.NewTaskController(taskUsecase)
+	
+	// ルーターを構築して、エンドポイントを登録
 	e := router.NewRouter(userController, taskController)
+
+	// サーバー起動（:8080で待ち受け）
 	e.Logger.Fatal(e.Start(":8080"))
 }
