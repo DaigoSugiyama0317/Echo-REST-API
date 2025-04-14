@@ -1,15 +1,46 @@
 version: "3.8"
 services:
+  # Goアプリケーションサービス
+  go-webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT}:8080"
+    environment:
+      # .envファイルからの環境変数
+      PORT: ${PORT}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PW: ${POSTGRES_PW}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT: 5432 # コンテナ内部ポート
+      POSTGRES_HOST: dev-postgres # サービス名
+      SECRET: ${SECRET}
+      GO_ENV: ${GO_ENV}
+      API_DOMAIN: ${API_DOMAIN}
+      FE_URL: ${FE_URL}
+    depends_on:
+      - dev-postgres
+    networks:
+      - lesson
+  
+  # PostgreSQLデータベースサービス
   dev-postgres:
     image: postgres:15.1-alpine
     ports:
-      - 5434:5432
+      - ${POSTGRES_PORT}:5432
     environment:
-      POSTGRES_USER: udemy
-      POSTGRES_PASSWORD: udemy
-      POSTGRES_DB: udemy
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PW}
+      POSTGRES_DB: ${POSTGRES_DB}
     restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - lesson
+
+volumes:
+  postgres_data:
+
 networks:
   lesson:
